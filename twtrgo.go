@@ -18,4 +18,5 @@ type User struct {
 // TweetService methods to be implemented by any service to fulfill the requirements
 type TweetService interface {
 	HomeFeed() (tweets []*Tweet, err error)
+	Search(keyword string) (tweets []*Tweet, err error)
 }

@@ -28,15 +28,44 @@ func (t *TweetService) HomeFeed() (tweets []*twtrgo.Tweet, err error) {
 		return nil, err
 	}
 
-	for _, t := range timeline {
+	for _, status := range timeline {
 		tweet := &twtrgo.Tweet{
-			ID:     t.Id,
-			Status: t.Text,
+			ID:     status.Id,
+			Status: status.Text,
 			User: &twtrgo.User{
-				ID:              t.User.Id,
-				Name:            t.User.Name,
-				ScreenName:      t.User.ScreenName,
-				ProfileImageURL: t.User.ProfileImageUrlHttps,
+				ID:              status.User.Id,
+				Name:            status.User.Name,
+				ScreenName:      status.User.ScreenName,
+				ProfileImageURL: status.User.ProfileImageUrlHttps,
+			},
+		}
+
+		tweets = append(tweets, tweet)
+	}
+
+	return tweets, nil
+}
+
+// Search gets tweets based on a searched keyword
+func (t *TweetService) Search(keyword string) (tweets []*twtrgo.Tweet, err error) {
+	results, err := t.Api.GetSearch(keyword, url.Values{
+		"count":            []string{"50"},
+		"lang":             []string{"en"},
+		"include_entities": []string{"false"},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	for _, status := range results.Statuses {
+		tweet := &twtrgo.Tweet{
+			ID:     status.Id,
+			Status: status.Text,
+			User: &twtrgo.User{
+				ID:              status.User.Id,
+				Name:            status.User.Name,
+				ScreenName:      status.User.ScreenName,
+				ProfileImageURL: status.User.ProfileImageUrlHttps,
 			},
 		}
 
