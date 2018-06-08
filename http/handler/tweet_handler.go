@@ -9,10 +9,15 @@ import (
 	"github.com/jinmatt/twtrgo/twitter"
 )
 
+// TweetHandler uses `twtrgo.TweetService`
+// defines http handler methods for http routes
 type TweetHandler struct {
 	TweetService twtrgo.TweetService
 }
 
+// NewTweetHandler initializes TweetService
+// `TweetService` is of type `twtrgo.TweetService`
+// so can be swapped out with any other prefered implementions
 func NewTweetHandler() *TweetHandler {
 	return &TweetHandler{
 		TweetService: &twitter.TweetService{
@@ -21,13 +26,14 @@ func NewTweetHandler() *TweetHandler {
 	}
 }
 
-func (h *TweetHandler) handleGetTweets(w http.ResponseWriter, r *http.Request) {
-	tweets, err := h.TweetService.Tweets()
+// handleHomeFeed http handler for the app's home page feed
+func (h *TweetHandler) handleHomeFeed(w http.ResponseWriter, r *http.Request) {
+	tweets, err := h.TweetService.HomeFeed()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 		return
 	}
 
-	template.Feed(tweets, w)
+	template.Render(tweets, w)
 }

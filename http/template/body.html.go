@@ -10,7 +10,7 @@ import (
 	"github.com/shiyanhui/hero"
 )
 
-func Feed(tweets []*twtrgo.Tweet, w io.Writer) {
+func Render(tweets []*twtrgo.Tweet, w io.Writer) {
 	_buffer := hero.GetBuffer()
 	defer hero.PutBuffer(_buffer)
 	_buffer.WriteString(`<!doctype html>
@@ -42,6 +42,9 @@ func Feed(tweets []*twtrgo.Tweet, w io.Writer) {
     `)
 		hero.EscapeHTML(tweet.Status, _buffer)
 		_buffer.WriteString(`
+    <span class="badge badge-primary badge-pill">`)
+		hero.EscapeHTML(tweet.User.ScreenName, _buffer)
+		_buffer.WriteString(`</span>
 </li>
 `)
 		_buffer.WriteString(`

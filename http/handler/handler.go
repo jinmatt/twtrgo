@@ -7,23 +7,28 @@ import (
 	"github.com/urfave/negroni"
 )
 
+// Handler type to hold all http handlers to services
 type Handler struct {
 	TweetHandler *TweetHandler
 }
 
+// NewHandler inits all handlers
 func NewHandler() *Handler {
 	return &Handler{
 		TweetHandler: NewTweetHandler(),
 	}
 }
 
+// MakeHandler defines routes and inits a basic middleware
 func (h *Handler) MakeHandler() (http.Handler, error) {
 	router := mux.NewRouter()
 
-	// define routes here
-	router.HandleFunc("/", h.TweetHandler.handleGetTweets)
+	// ---------
+	//  Define routes here
+	// ---------
+	router.HandleFunc("/", h.TweetHandler.handleHomeFeed)
 
-	// for some basic routes access logs
+	// middleware for some basic routes access logs
 	n := negroni.Classic()
 	n.UseHandler(router)
 
