@@ -51,6 +51,7 @@ func (t *TweetService) Search(keyword string) (tweets []*twtrgo.Tweet, err error
 	results, err := t.Api.GetSearch(keyword, url.Values{
 		"count":            []string{"50"},
 		"lang":             []string{"en"},
+		"locale":           []string{"en"},
 		"include_entities": []string{"false"},
 	})
 	if err != nil {

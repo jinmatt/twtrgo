@@ -28,8 +28,15 @@ func Render(tweets []*twtrgo.Tweet, w io.Writer) {
   <body>
     `)
 	_buffer.WriteString(`
-  <nav class="navbar navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">TwtrGo</a>
+  <nav class="navbar navbar-dark" style="background-color: #2f308a;">
+    <!-- brand -->
+    <a class="navbar-brand" href="/">TwtrGo</a>
+
+    <!-- search form -->
+    <form class="form-inline" method="get" action="/search">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </nav>
 
   <div class="container-fluid">
