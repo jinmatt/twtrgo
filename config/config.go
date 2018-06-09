@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Config type to hold runtime env variables
 type Config struct {
 	Environment              string `env:"TWTRGO_ENV" envDefault:"default"`
 	Port                     string `env:"PORT" envDefault:"8080"`
@@ -16,6 +17,8 @@ type Config struct {
 	TwitterAccessTokenSecret string `env:"TWITTER_ACCESS_TOKEN_SECRET"`
 }
 
+// NewConfig gets env variables
+// or load exports from .env file to init type Config
 func NewConfig() (*Config, error) {
 
 	// set exports from .env file if running local or with default environment

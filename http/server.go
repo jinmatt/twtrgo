@@ -13,18 +13,21 @@ import (
 	"github.com/jinmatt/twtrgo/http/handler"
 )
 
+// Server type to hold http components
 type Server struct {
 	handler  *handler.Handler
 	server   *http.Server
 	listener net.Listener
 }
 
+// NewServer inits type Server with http handlers
 func NewServer(handler *handler.Handler) *Server {
 	return &Server{
 		handler: handler,
 	}
 }
 
+// Start sets up and starts the http server with `Config`
 func (s *Server) Start(config *config.Config) error {
 	addr := ":" + config.Port
 	ln, err := net.Listen("tcp", addr)
@@ -58,6 +61,7 @@ func (s *Server) Start(config *config.Config) error {
 	return nil
 }
 
+// Stop shuts down http server in a given grace time period
 func (s *Server) Stop(grace time.Duration) {
 	ctx, cancel := context.WithTimeout(context.Background(), grace)
 	err := s.server.Shutdown(ctx)

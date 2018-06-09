@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/jinmatt/twtrgo"
+	"github.com/jinmatt/twtrgo/errors"
 	"github.com/jinmatt/twtrgo/http/template"
 	"github.com/jinmatt/twtrgo/services"
 	"github.com/jinmatt/twtrgo/twitter"
@@ -45,14 +45,14 @@ func (h *TweetHandler) handleSearch(w http.ResponseWriter, r *http.Request) {
 	keyword := r.URL.Query().Get("q")
 	if keyword == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		template.RenderError(errors.New("Search for recent tweets like #NBAFinals..."), w)
+		template.RenderError(errors.ErrNoKeyword, w)
 		return
 	}
 
 	tweets, err := h.TweetService.Search(keyword)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
+		template.RenderError(err, w)
 		return
 	}
 

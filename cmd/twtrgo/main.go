@@ -16,18 +16,21 @@ import (
 func main() {
 	log.Println("Server starting up...")
 
+	// loads config
 	config, err := config.NewConfig()
 	if err != nil {
 		log.Println("Error loading config:")
 		log.Fatal(err.Error())
 	}
 
+	// inits all services
 	err = services.Init(config)
 	if err != nil {
 		log.Println("Error initializing services:")
 		log.Fatal(err.Error())
 	}
 
+	// Get http handlers and start server
 	handler := handler.NewHandler()
 	server := http.NewServer(handler)
 
@@ -40,7 +43,7 @@ func main() {
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 
-	// wait until we get a signal
+	// wait until we get a signal to shutdown
 	<-sig
 
 	// stop handling signals
