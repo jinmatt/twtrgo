@@ -2,6 +2,8 @@
 
 A basic twitter app to search tweets and to display user's home feed.
 
+See demo [here](https://twtrgo.herokuapp.com).
+
 ### Dependencies
 
 * `dep` - Go dependencies management tool [https://golang.github.io/dep](https://golang.github.io/dep)
@@ -21,12 +23,13 @@ TWITTER_CONSUMER_SECRET=<consumer-secret>
 TWITTER_ACCESS_TOKEN=<access-token>
 TWITTER_ACCESS_TOKEN_SECRET=<access-token-secret>
 ```
+> Otherwise _export_ environment variables directly in terminal, whichever is preferable
 
 2. Install `hero` cli as mentioned in **Dependencies**. Html templates are compiled into directory `http/templates`. If need to recompile templates from `http/templates/src` run:
 ```
 $ make template
 ```
-> Default package name will be `github.com/jinmatt/twtrgo/http/template`. The render function can be found under _http/template/src_ inside _.html_ files(home/search/error)
+> Default package name will be `github.com/jinmatt/twtrgo/http/template`. The render functions can be found under _http/template/src_ inside _.html_ files(home/search/error)
 
 3. Build app:
 ```

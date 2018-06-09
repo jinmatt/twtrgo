@@ -21,6 +21,8 @@ type TweetService struct {
 
 // HomeFeed gets the home timeline feeds from twitter
 func (t *TweetService) HomeFeed() (tweets []*twtrgo.Tweet, err error) {
+	// TODO: count and other options should be configurable
+	// should be even cached as there is a rate limit for 15req/15min
 	timeline, err := t.Api.GetHomeTimeline(url.Values{
 		"count":            []string{"50"},
 		"exclude_replies":  []string{"true"},
