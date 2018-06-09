@@ -32,11 +32,11 @@ func (h *TweetHandler) handleHomeFeed(w http.ResponseWriter, r *http.Request) {
 	tweets, err := h.TweetService.HomeFeed()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
+		template.RenderError(err, w)
 		return
 	}
 
-	template.Render(tweets, w)
+	template.RenderHome(tweets, w)
 }
 
 // handleSearch http handler for the app's search tweets feed

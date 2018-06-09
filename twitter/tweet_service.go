@@ -30,24 +30,9 @@ func (t *TweetService) HomeFeed() (tweets []*twtrgo.Tweet, err error) {
 		return nil, err
 	}
 
-	for _, status := range timeline {
-		createdAt, err := time.Parse(time.RubyDate, status.CreatedAt)
-		if err != nil {
-			return nil, err
-		}
-		tweet := &twtrgo.Tweet{
-			ID:        status.Id,
-			Status:    status.Text,
-			CreatedAt: humanize.Time(createdAt),
-			User: &twtrgo.User{
-				ID:              status.User.Id,
-				Name:            status.User.Name,
-				ScreenName:      status.User.ScreenName,
-				ProfileImageURL: status.User.ProfileImageUrlHttps,
-			},
-		}
-
-		tweets = append(tweets, tweet)
+	tweets, err = parseTweets(timeline)
+	if err != nil {
+		return nil, err
 	}
 
 	return tweets, nil
@@ -65,7 +50,17 @@ func (t *TweetService) Search(keyword string) (tweets []*twtrgo.Tweet, err error
 		return nil, err
 	}
 
-	for _, status := range results.Statuses {
+	tweets, err = parseTweets(results.Statuses)
+	if err != nil {
+		return nil, err
+	}
+
+	return tweets, nil
+}
+
+// parseTweets converts the list of tweets statuses to type `[]*twtrgo.Tweet`
+func parseTweets(statuses []anaconda.Tweet) (tweets []*twtrgo.Tweet, err error) {
+	for _, status := range statuses {
 		createdAt, err := time.Parse(time.RubyDate, status.CreatedAt)
 		if err != nil {
 			return nil, err

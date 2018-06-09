@@ -10,7 +10,7 @@ import (
 	"github.com/shiyanhui/hero"
 )
 
-func Render(tweets []*twtrgo.Tweet, w io.Writer) {
+func RenderHome(tweets []*twtrgo.Tweet, w io.Writer) {
 	_buffer := hero.GetBuffer()
 	defer hero.PutBuffer(_buffer)
 	_buffer.WriteString(`<!doctype html>
