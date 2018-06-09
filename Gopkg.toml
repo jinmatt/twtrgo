@@ -23,7 +23,10 @@
 #   non-go = false
 #   go-tests = true
 #   unused-packages = true
-
+[metadata.heroku]
+  root-package = "github.com/jinmatt/twtrgo"
+  ensure = false
+  install = [ "./cmd/..." ]
 
 [[constraint]]
   name = "github.com/ChimeraCoder/anaconda"
