@@ -27,6 +27,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/dustin/go-humanize"
+  packages = ["."]
+  revision = "02af3965c54e8cacf948b97fef38925c4120652c"
+
+[[projects]]
+  branch = "master"
   name = "github.com/dustin/go-jsonpointer"
   packages = ["."]
   revision = "ba0abeacc3dcca5b9b20f31509c46794edbc9965"
@@ -82,6 +88,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fbf658c620473dd507af9caecb29cbdee34a5dfffa655956cd5b6f23205e44ee"
+  inputs-digest = "a493f4acdd09e01ef2123d9df4f7363b069b1bd57af60b30a1633d8d9d03055f"
   solver-name = "gps-cdcl"
   solver-version = 1

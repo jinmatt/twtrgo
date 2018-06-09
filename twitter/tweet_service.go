@@ -2,8 +2,10 @@ package twitter
 
 import (
 	"net/url"
+	"time"
 
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/dustin/go-humanize"
 	"github.com/jinmatt/twtrgo"
 )
 
@@ -29,9 +31,14 @@ func (t *TweetService) HomeFeed() (tweets []*twtrgo.Tweet, err error) {
 	}
 
 	for _, status := range timeline {
+		createdAt, err := time.Parse(time.RubyDate, status.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
 		tweet := &twtrgo.Tweet{
-			ID:     status.Id,
-			Status: status.Text,
+			ID:        status.Id,
+			Status:    status.Text,
+			CreatedAt: humanize.Time(createdAt),
 			User: &twtrgo.User{
 				ID:              status.User.Id,
 				Name:            status.User.Name,
@@ -59,9 +66,14 @@ func (t *TweetService) Search(keyword string) (tweets []*twtrgo.Tweet, err error
 	}
 
 	for _, status := range results.Statuses {
+		createdAt, err := time.Parse(time.RubyDate, status.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
 		tweet := &twtrgo.Tweet{
-			ID:     status.Id,
-			Status: status.Text,
+			ID:        status.Id,
+			Status:    status.Text,
+			CreatedAt: humanize.Time(createdAt),
 			User: &twtrgo.User{
 				ID:              status.User.Id,
 				Name:            status.User.Name,

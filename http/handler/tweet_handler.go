@@ -45,7 +45,7 @@ func (h *TweetHandler) handleSearch(w http.ResponseWriter, r *http.Request) {
 	keyword := r.URL.Query().Get("q")
 	if keyword == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(errors.New("Needs query string `q` for the keyword to be searched for!").Error()))
+		template.RenderError(errors.New("Search for recent tweets like #NBAFinals..."), w)
 		return
 	}
 
@@ -56,5 +56,5 @@ func (h *TweetHandler) handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	template.Render(tweets, w)
+	template.RenderSearch(keyword, tweets, w)
 }

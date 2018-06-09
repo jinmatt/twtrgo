@@ -1,0 +1,26 @@
+<%: func RenderSearch(keyword string, tweets []*twtrgo.Tweet, w io.Writer) %>
+
+<%~ "index.html" %>
+
+<%@ body { %>
+
+    <%+ "navbar.html" %>
+
+    <div class="row">
+      <div class="col">
+        <h5 class="lead mb-0 pl-1">Top results for <em>"<%= keyword %></em>"...</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <% for _, tweet := range tweets { %>
+          <%+ "tweet.html" %>
+        <% }
+           if len(tweets) == 0 { %>
+             <%+ "no_tweets.html" %>
+        <% } %>
+      </div>
+    </div>
+
+<% } %>

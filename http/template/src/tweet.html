@@ -1,4 +1,14 @@
-<li class="list-group-item">
-    <%= tweet.Status %>
-    <span class="badge badge-primary badge-pill"><%= tweet.User.ScreenName %></span>
-</li>
+<!-- Tweet list item -->
+<div class="media my-3 rounded shadow-sm" style="border: 1px solid #fee2e6!important;">
+  <img class="align-self-start ml-3 mt-3 rounded-circle" src="<%= tweet.User.ProfileImageURL %>">
+  <div class="media-body">
+    <div class="card border-0">
+      <div class="card-body p-3">
+        <h6 class="card-title mb-2"><%= tweet.User.Name %>
+          <small class="text-muted">@<%= tweet.User.ScreenName %>  &middot; <%= tweet.CreatedAt %></small>
+        </h6>
+        <p class="card-text font-weight-light">@<%= tweet.Status %></p>
+      </div>
+    </div>
+  </div>
+</div>
