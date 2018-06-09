@@ -2,10 +2,13 @@ PATH  := $(PATH):$(PWD)
 SHELL := env PATH=$(PATH) /bin/bash
 
 default: run
-.PHONY: fmt build template run
+.PHONY: fmt test build template run
 
 fmt:
 	go fmt ./...
+
+test: fmt
+	go test -v ./test
 
 build: fmt
 	go install github.com/jinmatt/twtrgo/cmd/twtrgo

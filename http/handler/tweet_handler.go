@@ -28,7 +28,7 @@ func NewTweetHandler() *TweetHandler {
 }
 
 // handleHomeFeed http handler for the app's home page feed
-func (h *TweetHandler) handleHomeFeed(w http.ResponseWriter, r *http.Request) {
+func (h *TweetHandler) HandleHomeFeed(w http.ResponseWriter, r *http.Request) {
 	tweets, err := h.TweetService.HomeFeed()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -40,7 +40,7 @@ func (h *TweetHandler) handleHomeFeed(w http.ResponseWriter, r *http.Request) {
 }
 
 // handleSearch http handler for the app's search tweets feed
-func (h *TweetHandler) handleSearch(w http.ResponseWriter, r *http.Request) {
+func (h *TweetHandler) HandleSearch(w http.ResponseWriter, r *http.Request) {
 	// get searched keyword from query string
 	keyword := r.URL.Query().Get("q")
 	if keyword == "" {

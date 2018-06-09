@@ -26,8 +26,8 @@ func (h *Handler) MakeHandler() (http.Handler, error) {
 	// ---------
 	//  Define routes here
 	// ---------
-	router.HandleFunc("/", h.TweetHandler.handleHomeFeed)
-	router.HandleFunc("/search", h.TweetHandler.handleSearch)
+	router.HandleFunc("/", h.TweetHandler.HandleHomeFeed)
+	router.HandleFunc("/search", h.TweetHandler.HandleSearch)
 
 	// middleware for some basic routes access logs
 	n := negroni.Classic()
