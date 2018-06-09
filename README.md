@@ -26,6 +26,7 @@ TWITTER_ACCESS_TOKEN_SECRET=<access-token-secret>
 ```
 $ make template
 ```
+> Default package name will be `github.com/jinmatt/twtrgo/http/template`. The render function can be found under _http/template/src_ inside _.html_ files(home/search/error)
 
 3. Build app:
 ```
@@ -41,3 +42,17 @@ $ make test
 ```
 $ make
 ```
+> App starts on default port set in .env file _(PORT=8080 ; http://localhost:8080)_
+
+### Package Layout
+
+The app package layout is based on an approach to scale(Ref. [here](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1)).
+
+* `twtrgo` - The main package holds _Tweets_ type and _TweetService_ interface services should implement based on the requirements
+* `twitter` - implements _twtrgo.TweetService_ interface with [Twitter API client](https://github.com/ChimeraCoder/anaconda). Can be swapped out with other implementations or to use a cache/db service
+* `http/handler` - Handles http routes
+* `services` - Handles global connection/client objects like API/DB/cache objects, so they are only initialized once and destroyed once
+* `config` - Handles runtime configs
+* `cmd/twtrgo` - App binary package, inits configs, services and starts http server
+* `mock` - A mock package for _tests_, implements _twtrgo.TweetService_
+* `test` - Test package, tests only http routes(behavioral tests)
